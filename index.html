@@ -3,41 +3,165 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MK - Gestión de Tienda Alex</title>
 <style>
-body{font-family:Arial;background:#f3f3f3;margin:0}
-header{background:#2e7d32;color:#fff;padding:14px;text-align:center}
+:root{
+--bg:#0F172A;--card:#1E293B;--field:#334155;--border:#475569;
+--text:#FFFFFF;--text2:#CBD5E1;--primary:#22C55E;--primary2:#16A34A;
+--blue:#3B82F6;--blue2:#2563EB;--red:#EF4444;--red2:#DC2626;
+--purple:#A855F7;--purple2:#9333EA;--orange:#F97316;--orange2:#EA580C;
+--darkred:#7F1D1D;--darkred2:#450A0A;
+}
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);margin:0;color:var(--text)}
+header{background:linear-gradient(180deg,#141F35,#0F172A);color:#fff;padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:20;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.headerBrand{display:flex;align-items:center;gap:10px}
+.headerLogo{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,var(--primary),var(--primary2));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#0F172A;flex:none}
+header h2{margin:0;font-size:16px;font-weight:800;letter-spacing:.3px;text-align:left}
+.headerLogout{width:auto!important;background:transparent!important;border:1px solid var(--red)!important;color:#f87171!important;box-shadow:none!important;padding:8px 12px!important;font-size:12.5px!important;border-radius:10px!important;display:flex;align-items:center;gap:6px}
+.headerLogout:hover{background:rgba(239,68,68,.12)!important}
 .c{max-width:950px;margin:auto;padding:15px}
-.card{background:#fff;padding:15px;border-radius:10px;margin:12px 0;box-shadow:0 2px 4px #0002}
-input,select,button{padding:8px;margin:5px;width:100%;box-sizing:border-box}
-button{background:#2e7d32;color:#fff;border:0;border-radius:6px}
-table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6px}th{background:#2e7d32;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
-#estadoNube{text-align:center;font-size:12px;padding:4px;color:#555}
-#loginError{color:#c62828;text-align:center;font-size:14px}
+.card{background:var(--card);padding:18px;border-radius:16px;margin:14px 0;border:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,.35);animation:cardIn .35s ease;transition:box-shadow .2s,border-color .2s}
+.card:hover{border-color:#5b6b85}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card h3{margin:0 0 14px;color:#fff;font-size:16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);padding-bottom:10px}
+.card h4{color:var(--text2);font-size:13.5px;margin:18px 0 8px}
+
+input,select,textarea{
+ padding:11px 12px;margin:5px 0;width:100%;box-sizing:border-box;
+ background:var(--field);color:var(--text);border:1px solid var(--border);
+ border-radius:10px;font-size:14.5px;transition:border-color .2s,box-shadow .2s;
+}
+input::placeholder{color:#94A3B8}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+select{-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,#94A3B8 50%),linear-gradient(135deg,#94A3B8 50%,transparent 50%);background-position:calc(100% - 18px) center,calc(100% - 13px) center;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+input[readonly]{opacity:.85}
+
+button{
+ background:linear-gradient(90deg,var(--primary),var(--primary2));
+ color:#0F172A;border:0;border-radius:10px;font-weight:700;
+ padding:12px;margin:5px 0;width:100%;box-sizing:border-box;font-size:14.5px;
+ box-shadow:0 8px 18px rgba(34,197,94,.28);cursor:pointer;
+ transition:transform .12s ease,box-shadow .12s ease,opacity .12s ease;
+}
+button:hover{box-shadow:0 10px 22px rgba(34,197,94,.4)}
+button:active{transform:scale(.98)}
+
+button.btn-blue{background:linear-gradient(90deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 8px 18px rgba(59,130,246,.28)}
+button.btn-red{background:linear-gradient(90deg,var(--red),var(--red2));color:#fff;box-shadow:0 8px 18px rgba(239,68,68,.28)}
+button.btn-purple{background:linear-gradient(90deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 8px 18px rgba(168,85,247,.28)}
+button.btn-orange{background:linear-gradient(90deg,var(--orange),var(--orange2));color:#fff;box-shadow:0 8px 18px rgba(249,115,22,.28)}
+button.btn-darkred{background:linear-gradient(90deg,var(--darkred),var(--darkred2));color:#fff;box-shadow:0 6px 14px rgba(127,29,29,.4)}
+button.btn-outline{background:transparent;border:1px solid var(--border);color:#fff;box-shadow:none}
+button.btn-outline:hover{border-color:var(--primary);background:rgba(34,197,94,.08)}
+button.btn-sm{width:auto;padding:7px 12px;font-size:13px;margin:2px}
+button.btn-icon{width:auto;padding:7px 10px}
+
+#estadoNube{text-align:center;font-size:12.5px;padding:8px;color:var(--text2)}
+#loginError{color:#f87171;text-align:center;font-size:14px;margin:10px 0 0;transition:.3s}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.grid>div{background:var(--field);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:13.5px;color:var(--text2)}
+.grid>div span{display:block;color:#fff;font-weight:800;font-size:17px;margin-top:4px}
+
+table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--border)}
+th,td{padding:10px 8px;text-align:left;font-size:13.5px}
+th{background:linear-gradient(90deg,var(--primary2),var(--primary));color:#0F172A;font-weight:800;letter-spacing:.2px}
+td{background:var(--card);color:var(--text);border-top:1px solid var(--border)}
+tbody tr{transition:background .15s}
+tbody tr:hover td{background:#26364d}
+table button{width:auto;padding:6px 10px;font-size:12.5px;margin:2px}
+
+.topbar-right{display:flex;align-items:center;gap:8px;justify-content:center}
+#correoActual{font-weight:600}
+
+/* ===== Pantalla de inicio de sesión (rediseño premium) ===== */
+#loginScreen{background:var(--bg);min-height:100vh;padding:30px 16px;box-sizing:border-box}
+.loginWrap{max-width:400px;margin:0 auto;animation:loginFadeIn .5s ease}
+@keyframes loginFadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.loginCard{padding:34px 26px 26px;background:var(--card);border:1px solid var(--border);border-radius:22px;box-shadow:0 20px 50px rgba(0,0,0,.45);text-align:center;color:#fff}
+.loginLogo{width:66px;height:66px;border-radius:18px;margin:0 auto 14px;background:linear-gradient(145deg,var(--primary),var(--primary2));display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#0F172A;box-shadow:0 8px 22px rgba(34,197,94,.45);letter-spacing:-1px}
+.loginBrand{font-weight:800;font-size:15px;letter-spacing:1px;color:#fff;margin-bottom:2px}
+.loginBrand span{color:var(--primary)}
+.loginBrandSub{font-size:11px;letter-spacing:3px;color:#94A3B8;margin-bottom:22px}
+.loginCard h3{margin:0 0 4px;font-size:21px;color:#fff}
+.loginSub{color:var(--text2);font-size:13.5px;margin:0 0 24px}
+.loginField{text-align:left;margin-bottom:15px}
+.loginField label{display:block;font-size:12.5px;color:var(--text2);margin-bottom:6px;font-weight:600}
+.loginInputWrap{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:0 12px;transition:border-color .2s,box-shadow .2s}
+.loginInputWrap:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.loginInputWrap span{opacity:.85;font-size:15px;color:var(--primary)}
+.loginInputWrap input{background:transparent;border:0;color:#fff;padding:13px 8px;margin:0;width:100%;font-size:14.5px;border-radius:0;box-shadow:none!important}
+.loginInputWrap input:focus{outline:none}
+.loginInputWrap input::placeholder{color:#64748B}
+.loginInputWrap button{width:auto;background:transparent;padding:4px;margin:0;font-size:16px;cursor:pointer;color:#94A3B8;box-shadow:none}
+.loginForgot{display:block;text-align:right;font-size:12.5px;color:var(--primary);text-decoration:none;margin:-5px 0 18px;cursor:pointer;font-weight:600}
+.loginBtn{background:linear-gradient(90deg,var(--primary),var(--primary2))!important;border-radius:12px!important;padding:14px!important;font-weight:700;font-size:15px;box-shadow:0 10px 24px rgba(34,197,94,.35);transition:transform .15s,box-shadow .15s;color:#0F172A!important}
+.loginBtn:active{transform:scale(.98)}
+.loginDivider{display:flex;align-items:center;gap:10px;margin:18px 0;color:#64748B;font-size:12px}
+.loginDivider::before,.loginDivider::after{content:'';flex:1;height:1px;background:var(--border)}
+.loginOutlineBtn{background:transparent!important;border:1px solid var(--border)!important;color:#fff!important;border-radius:12px!important;padding:13px!important;font-weight:600;font-size:14.5px;transition:border-color .2s,background .2s;box-shadow:none}
+.loginOutlineBtn:active{background:rgba(34,197,94,.08)!important}
+.loginFooterNote{margin-top:20px;font-size:11.5px;color:#64748B;display:flex;align-items:center;justify-content:center;gap:6px}
+.loginBrandFooter{text-align:center;margin-top:22px;color:#64748B;font-size:11.5px;line-height:1.6}
+.loginBrandFooter b{color:#94A3B8}
+@media(min-width:600px){
+ .loginCard{padding:42px 38px 32px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+ .card{padding:22px}
+}
 </style></head><body>
-<header><h2>MK - Gestión de Tienda Alex</h2></header>
+<header>
+<div class="headerBrand"><div class="headerLogo">MK</div><h2 id="tituloTienda">MK - Gestión de Tienda</h2></div>
+<button class="headerLogout" id="btnCerrarSesionHeader" onclick="cerrarSesion()" style="display:none">🚪 Cerrar sesión (<span id="correoActual"></span>)</button>
+</header>
 
 <div id="loginScreen" style="display:none">
-<div class="c">
-<div class="card" style="max-width:350px;margin:40px auto">
-<h3 id="loginTitulo" style="text-align:center">🔒 Iniciar sesión</h3>
-<input id="loginEmail" type="email" placeholder="Correo electrónico">
-<input id="loginPass" type="password" placeholder="Contraseña (mínimo 6 caracteres)">
-<button id="btnAccion" onclick="accionLogin()">Iniciar sesión</button>
-<button id="btnAlt" onclick="alternarModoLogin()" style="background:#777">No tengo cuenta / Crear cuenta</button>
-<p id="loginError"></p>
+<div class="loginWrap">
+<div class="loginCard">
+<div class="loginLogo">MK</div>
+<div class="loginBrand">MK <span>GESTIÓN</span></div>
+<div class="loginBrandSub">DE TIENDA</div>
+<h3 id="loginTitulo">¡Bienvenido de nuevo!</h3>
+<p class="loginSub" id="loginSub">Inicia sesión para continuar</p>
+
+<div class="loginField" id="campoNombreTienda" style="display:none">
+<label>Nombre de la tienda o usuario</label>
+<div class="loginInputWrap"><span>🏪</span><input id="loginNombreTienda" placeholder="Ej. Bodega El Sol"></div>
 </div>
+
+<div class="loginField">
+<label>Correo electrónico</label>
+<div class="loginInputWrap"><span>✉️</span><input id="loginEmail" type="email" placeholder="ejemplo@correo.com"></div>
+</div>
+
+<div class="loginField">
+<label>Contraseña</label>
+<div class="loginInputWrap"><span>🔒</span><input id="loginPass" type="password" placeholder="••••••••"><button type="button" id="btnOjo" onclick="togglePass()">👁️</button></div>
+</div>
+
+<div class="loginField" id="campoConfirmar" style="display:none">
+<label>Confirmar contraseña</label>
+<div class="loginInputWrap"><span>🔒</span><input id="loginPassConfirm" type="password" placeholder="••••••••"><button type="button" id="btnOjo2" onclick="togglePassConfirm()">👁️</button></div>
+</div>
+
+<a class="loginForgot" id="linkOlvide" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a>
+
+<button class="loginBtn" id="btnAccion" onclick="accionLogin()">→] Iniciar sesión</button>
+
+<div class="loginDivider">o</div>
+<button class="loginOutlineBtn" id="btnAlt" onclick="alternarModoLogin()">👤+ Crear cuenta</button>
+
+<p id="loginError"></p>
+<p class="loginFooterNote">🛡️ Tus datos están protegidos</p>
+</div>
+<div class="loginBrandFooter"><b>MK</b> GESTIÓN DE TIENDA<br>Sistema de gestión para tu negocio</div>
 </div>
 </div>
 
 <div id="appContent" style="display:none">
 <div id="estadoNube">🔄 Conectando con la nube...</div>
 <div class="c">
-<div class="card" style="text-align:right;padding:6px 15px">
-<button onclick="cerrarSesion()" style="width:auto;background:#777;padding:6px 14px">🚪 Cerrar sesión (<span id="correoActual"></span>)</button>
-</div>
-
 <div class="card">
-<h3>Resumen</h3>
+<h3>📊 Resumen</h3>
 <div class="grid">
 <div>🏦 Caja: S/ <span id="caja">0.00</span></div>
 <div>💰 Ahorro: S/ <span id="ahorro">0.00</span></div>
@@ -48,11 +172,11 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6p
 <div>💰 Total: S/ <span id=t>0.00</span></div>
 </div>
 <div style="margin-top:10px">
-<button onclick="exportarDatos()">📂 Exportar respaldo</button>
+<button class="btn-purple" onclick="exportarDatos()">📂 Exportar respaldo</button>
 <input type="file" id="importFile" style="display:none" onchange="importarDatos(event)">
-<button onclick="importFile.click()">📥 Importar respaldo</button>
-<button onclick="reiniciarSistema()">🗑️ Restablecer sistema</button>
-<button onclick="editarCaja()">💵 Editar caja</button>
+<button class="btn-orange" onclick="importFile.click()">📥 Importar respaldo</button>
+<button class="btn-red" onclick="reiniciarSistema()">🗑️ Restablecer sistema</button>
+<button class="btn-blue" onclick="editarCaja()">💵 Editar caja</button>
 <button onclick="cerrarDia()">📅 Finalizar venta del día</button>
 </div></div>
 
@@ -67,9 +191,9 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6p
 <select id="tipoCarne" style="display:none">
 <option>Pollo entero</option><option>Mitad de pollo</option><option>Pechuga</option><option>Entrepierna</option><option>Ala</option><option>Hígado</option><option>Molleja</option><option>Res</option><option>Cerdo</option><option>Pescado</option>
 </select>
-<button type="button" id="editarCarnes" style="display:none" onclick="editarTiposCarne()">✏️ Editar tipos de carne</button>
+<button type="button" class="btn-blue" id="editarCarnes" style="display:none" onclick="editarTiposCarne()">✏️ Editar tipos de carne</button>
 <input id=st type=number min=0 placeholder="Stock">
-<button onclick="guardar()">Guardar / Editar</button>
+<button class="btn-green" onclick="guardar()">💾 Guardar / Editar</button>
 <select id=filtroCat onchange="listar()">
 <option>Todas</option><option>Abarrotes</option><option>Bebidas</option><option>Golosinas</option>
 <option>Limpieza</option><option>Lácteos</option><option>Panadería</option><option>Carnes</option><option>Otros</option>
@@ -88,14 +212,14 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6p
 <option value="kg">⚖️ Por peso (kg)</option>
 <option value="total">💰 Por total</option>
 </select>
-<button type="button" onclick="calcularKg()">⚖️ Calcular por kg</button>
-<button type="button" onclick="calcularTotal()">💰 Calcular por total</button>
+<button type="button" class="btn-outline" onclick="calcularKg()">⚖️ Calcular por kg</button>
+<button type="button" class="btn-outline" onclick="calcularTotal()">💰 Calcular por total</button>
 <input id=total readonly>
 <select id=forma onchange="toggleCliente()">
 <option>Efectivo</option><option>Yape</option><option>Fiado</option><option>Pago pendiente</option>
 </select>
 <input id=cliente placeholder="Nombre del cliente" style="display:none">
-<button onclick="venta()">Registrar venta</button>
+<button class="btn-green" onclick="venta()">🛒 Registrar venta</button>
 </div>
 
 
@@ -109,16 +233,16 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6p
 <option value="kg">⚖️ Por peso (kg)</option>
 <option value="total">💰 Por total</option>
 </select>
-<button type="button" onclick="calcularKgCarrito()">⚖️ Calcular por kg</button>
-<button type="button" onclick="calcularTotalCarrito()">💰 Calcular por total</button>
-<button type="button" onclick="agregarCarrito()">➕ Añadir al carrito</button>
+<button type="button" class="btn-outline" onclick="calcularKgCarrito()">⚖️ Calcular por kg</button>
+<button type="button" class="btn-outline" onclick="calcularTotalCarrito()">💰 Calcular por total</button>
+<button type="button" class="btn-blue" onclick="agregarCarrito()">➕ Añadir al carrito</button>
 <div id="tablaCarrito"></div>
 <p><b>Total del carrito:</b> S/ <span id="totalCarrito">0.00</span></p>
 <select id="carritoPago">
 <option>Efectivo</option><option>Yape</option><option>Fiado</option><option>Pago pendiente</option>
 </select>
 <input id="carritoCliente" placeholder="Nombre del cliente" style="display:none">
-<button type="button" onclick="finalizarCarrito()">Finalizar compra</button>
+<button type="button" class="btn-green" onclick="finalizarCarrito()">✅ Finalizar compra</button>
 </div>
 
 <div class="card">
@@ -130,7 +254,7 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6p
 
 <div class="card">
 <h3>📦 Compras y Gastos</h3>
-<button onclick="nuevoGasto()">➕ Registrar compra/gasto</button>
+<button class="btn-purple" onclick="nuevoGasto()">➕ Registrar compra/gasto</button>
 <table><thead><tr><th>Fecha</th><th>Descripción</th><th>Monto</th><th>Acción</th></tr></thead><tbody id="tablaGastos"></tbody></table>
 </div>
 
@@ -146,9 +270,9 @@ table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6p
 <div class="card">
 <h3>💰 Ahorros</h3>
 <input id="montoAhorro" type="number" step="0.01" placeholder="Monto a ahorrar">
-<button onclick="registrarAhorro()">💰 Guardar ahorro</button>
+<button class="btn-green" onclick="registrarAhorro()">💰 Guardar ahorro</button>
 <input id="montoRetiroAhorro" type="number" step="0.01" placeholder="Monto a retirar del ahorro">
-<button onclick="retirarAhorro()">💸 Retirar del ahorro</button>
+<button class="btn-orange" onclick="retirarAhorro()">💸 Retirar del ahorro</button>
 <p><b>Ahora ahorrado:</b> S/ <span id="totalAhorrado">0.00</span></p>
 <h4>📅 Historial de ahorros</h4>
 <table><thead><tr><th>Fecha</th><th>Movimiento</th><th>Monto</th></tr></thead><tbody id="tablaAhorros"></tbody></table>
@@ -178,8 +302,69 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const dbFirestore = firebase.firestore();
-// Todo se guarda en un solo documento (así todos los dispositivos ven lo mismo)
-const DOC_REF = dbFirestore.collection("mk_tienda").doc("estado");
+// Cada usuario tiene su propio documento, identificado por su UID
+// (así cada quien ve y guarda solo su propia información)
+let DOC_REF = null;
+let USUARIO_REF = null;
+
+/* =========================================================
+   VERSIÓN DE LA APP Y SISTEMA DE MIGRACIÓN DE DATOS
+   -----------------------------------------------------------
+   Sube este número cada vez que publiques una actualización
+   (v1.1, v1.2, v2.0...). No es obligatorio, solo ayuda a
+   identificar qué versión de estructura tiene cada usuario.
+
+   ¿CÓMO AGREGAR UN CAMPO NUEVO EN EL FUTURO?
+   Solo agrégalo aquí abajo, en DEFAULTS_ESTADO (datos de la
+   tienda: productos, ventas, etc.) o en DEFAULTS_PERFIL (datos
+   del usuario: nombre de tienda, logo, teléfono, dirección...),
+   con su valor inicial. La próxima vez que un usuario antiguo
+   entre a la app, el sistema notará que le falta ese campo y
+   se lo agregará automáticamente, SIN BORRAR nada de lo que ya
+   tenía guardado. No hace falta tocar nada más.
+   ========================================================= */
+const APP_VERSION = "1.0.0";
+
+const DEFAULTS_ESTADO = {
+  db: ()=>({}),
+  ventas: ()=>[],
+  fiados: ()=>[],
+  pendientes: ()=>[],
+  gastos: ()=>[],
+  ahorros: ()=>[],
+  historialDias: ()=>[],
+  carrito: ()=>[],
+  TOTAL_AHORRADO: ()=>0,
+  E: ()=>0, Y: ()=>0, F: ()=>0, P: ()=>0, T: ()=>0, CAJA: ()=>0
+};
+
+// Datos del perfil del usuario (no cambian el diseño actual; quedan
+// listos para cuando se agregue, por ejemplo, un logo o teléfono).
+const DEFAULTS_PERFIL = {
+  nombreTienda: ()=>'',
+  email: ()=>'',
+  logo: ()=>'',
+  telefono: ()=>'',
+  direccion: ()=>''
+};
+
+// Toma los datos guardados de un usuario y le agrega, sin borrar
+// nada, cualquier campo nuevo que no tuviera todavía.
+function migrarObjeto(datosGuardados, defaults){
+  const d = datosGuardados ? {...datosGuardados} : {};
+  let cambio = false;
+  Object.keys(defaults).forEach(campo=>{
+    if(d[campo]===undefined){
+      d[campo]=defaults[campo]();
+      cambio=true;
+    }
+  });
+  if(d.version !== APP_VERSION){
+    d.version = APP_VERSION;
+    cambio = true;
+  }
+  return {datos:d, cambio:cambio};
+}
 
 let gastos=[];
 let historialDias=[];
@@ -194,11 +379,12 @@ let E=0,Y=0,F=0,P=0,T=0,CAJA=0;
 /* ---------- Guardado en la nube ---------- */
 let guardando=false, pendienteGuardar=false;
 function guardarEstado(){
+  if(!DOC_REF)return;
   const estadoTxt=document.getElementById('estadoNube');
   if(estadoTxt) estadoTxt.textContent='💾 Guardando...';
   if(guardando){pendienteGuardar=true;return;}
   guardando=true;
-  const estado={db,ventas:ventasData,fiados:fiadosData,pendientes:pendientesData,gastos,ahorros,historialDias,TOTAL_AHORRADO,E,Y,F,P,T,CAJA};
+  const estado={db,ventas:ventasData,fiados:fiadosData,pendientes:pendientesData,gastos,ahorros,historialDias,carrito,TOTAL_AHORRADO,E,Y,F,P,T,CAJA,version:APP_VERSION};
   DOC_REF.set(estado).then(()=>{
     if(estadoTxt) estadoTxt.textContent='☁️ Datos guardados en la nube';
   }).catch(err=>{
@@ -220,31 +406,33 @@ function renderTodo(){
   mostrarGastos();
   mostrarAhorros();
   mostrarHistorialDias();
+  renderCarrito();
   actualizar();
 }
 
 function cargarEstado(){
+  if(!DOC_REF)return;
   const estadoTxt=document.getElementById('estadoNube');
   DOC_REF.get().then(snap=>{
-    if(snap.exists){
-      const d=snap.data();
-      db=d.db||{};
-      ventasData=d.ventas||[];
-      fiadosData=d.fiados||[];
-      pendientesData=d.pendientes||[];
-      gastos=d.gastos||[];
-      ahorros=d.ahorros||[];
-      historialDias=d.historialDias||[];
-      TOTAL_AHORRADO=d.TOTAL_AHORRADO||0;
-      E=d.E||0;Y=d.Y||0;F=d.F||0;P=d.P||0;T=d.T||0;CAJA=d.CAJA||0;
-      if(estadoTxt) estadoTxt.textContent='☁️ Datos cargados desde la nube';
-      renderTodo();
-    }else{
+    const existia = snap.exists;
+    const migracion = migrarObjeto(existia?snap.data():null, DEFAULTS_ESTADO);
+    const d = migracion.datos;
+    db=d.db; ventasData=d.ventas; fiadosData=d.fiados; pendientesData=d.pendientes;
+    gastos=d.gastos; ahorros=d.ahorros; historialDias=d.historialDias; carrito=d.carrito;
+    TOTAL_AHORRADO=d.TOTAL_AHORRADO;
+    E=d.E;Y=d.Y;F=d.F;P=d.P;T=d.T;CAJA=d.CAJA;
+
+    if(!existia){
+      // Primera vez de este usuario: productos de ejemplo para empezar
       db={"Arroz 1Kg":{categoria:"Abarrotes",precio:5.5,stock:50},"Azúcar 1Kg":{categoria:"Abarrotes",precio:4.8,stock:40},"Coca-Cola 3L":{categoria:"Bebidas",precio:10.5,stock:30}};
       if(estadoTxt) estadoTxt.textContent='☁️ Primer uso: creando datos en la nube';
-      renderTodo();
-      guardarEstado();
+    }else if(migracion.cambio){
+      if(estadoTxt) estadoTxt.textContent='☁️ Datos actualizados a la versión '+APP_VERSION;
+    }else{
+      if(estadoTxt) estadoTxt.textContent='☁️ Datos cargados desde la nube';
     }
+    renderTodo();
+    if(!existia||migracion.cambio) guardarEstado();
   }).catch(err=>{
     console.error("Error al cargar desde Firebase:",err);
     if(estadoTxt) estadoTxt.textContent='⚠️ No se pudo conectar a Firebase (revisa firebaseConfig)';
@@ -261,8 +449,8 @@ function listar(){
 let q=buscar.value.toLowerCase();lista.innerHTML="";
 Object.entries(db).filter(x=>x[0].toLowerCase().includes(q)&&(filtroCat.value=="Todas"||x[1].categoria==filtroCat.value)).forEach(([n,v])=>{
 lista.innerHTML+=`<tr><td>${n}</td><td>${v.categoria||'Otros'}</td><td>S/ ${v.precio.toFixed(2)}</td><td>${v.stock<=0?"Agotado":v.stock<=5?"⚠️ "+v.stock:v.stock}</td><td>
-<button onclick="reponer('${n}')">➕</button>
-<button onclick="del('${n}')">🗑️</button>
+<button class="btn-sm btn-blue" onclick="reponer('${n}')">➕</button>
+<button class="btn-sm btn-red" onclick="del('${n}')">🗑️</button>
 </td></tr>`;
 });
 }
@@ -356,7 +544,8 @@ function renderVentas(){
    fila.insertCell().textContent=v.estado;
    const c=fila.insertCell();
    const b=document.createElement('button');
-   b.textContent='Eliminar';
+   b.className='btn-sm btn-red';
+   b.textContent='🗑️ Eliminar';
    b.onclick=function(){eliminarVenta(idx);};
    c.appendChild(b);
  });
@@ -419,6 +608,7 @@ function renderFiados(){
    const ac=r.insertCell();
    if(f.estado==='Pendiente'){
      const bp=document.createElement('button');
+     bp.className='btn-sm';
      bp.textContent='💵 Cobrar';
      bp.onclick=function(){cobrarFiado(idx);};
      ac.appendChild(bp);
@@ -460,6 +650,7 @@ function renderPendientes(){
    const ac=r.insertCell();
    if(p.estado==='Pendiente'){
      const bp=document.createElement('button');
+     bp.className='btn-sm';
      bp.textContent='💵 Cobrar';
      bp.onclick=function(){cobrarPendiente(idx);};
      ac.appendChild(bp);
@@ -492,10 +683,43 @@ let modoRegistro=false;
 
 function alternarModoLogin(){
  modoRegistro=!modoRegistro;
- document.getElementById('loginTitulo').textContent=modoRegistro?'📝 Crear cuenta':'🔒 Iniciar sesión';
- document.getElementById('btnAccion').textContent=modoRegistro?'Crear cuenta':'Iniciar sesión';
- document.getElementById('btnAlt').textContent=modoRegistro?'Ya tengo cuenta':'No tengo cuenta / Crear cuenta';
+ document.getElementById('loginTitulo').textContent=modoRegistro?'Crea tu cuenta':'¡Bienvenido de nuevo!';
+ document.getElementById('loginSub').textContent=modoRegistro?'Regístrate para comenzar':'Inicia sesión para continuar';
+ document.getElementById('campoNombreTienda').style.display=modoRegistro?'block':'none';
+ document.getElementById('campoConfirmar').style.display=modoRegistro?'block':'none';
+ document.getElementById('btnAccion').textContent=modoRegistro?'→] Crear cuenta':'→] Iniciar sesión';
+ document.getElementById('linkOlvide').style.display=modoRegistro?'none':'block';
+ document.getElementById('btnAlt').textContent=modoRegistro?'👤 Ya tengo cuenta':'👤+ Crear cuenta';
  document.getElementById('loginError').textContent='';
+ document.getElementById('loginNombreTienda').value='';
+ document.getElementById('loginPassConfirm').value='';
+}
+
+function togglePass(){
+ const campo=document.getElementById('loginPass');
+ const boton=document.getElementById('btnOjo');
+ if(campo.type==='password'){campo.type='text';boton.textContent='🙈';}
+ else{campo.type='password';boton.textContent='👁️';}
+}
+
+function togglePassConfirm(){
+ const campo=document.getElementById('loginPassConfirm');
+ const boton=document.getElementById('btnOjo2');
+ if(campo.type==='password'){campo.type='text';boton.textContent='🙈';}
+ else{campo.type='password';boton.textContent='👁️';}
+}
+
+function recuperarContrasena(){
+ const email=document.getElementById('loginEmail').value.trim();
+ const err=document.getElementById('loginError');
+ if(!email){err.style.color='#f87171';err.textContent='Escribe tu correo arriba y toca de nuevo "¿Olvidaste tu contraseña?"';return;}
+ auth.sendPasswordResetEmail(email).then(()=>{
+   err.style.color='#22C55E';
+   err.textContent='Te enviamos un correo a '+email+' con instrucciones para restablecer tu contraseña.';
+ }).catch(e=>{
+   err.style.color='#f87171';
+   err.textContent=traducirErrorLogin(e.code);
+ });
 }
 
 function traducirErrorLogin(code){
@@ -515,29 +739,65 @@ function accionLogin(){
  const email=document.getElementById('loginEmail').value.trim();
  const pass=document.getElementById('loginPass').value;
  const err=document.getElementById('loginError');
+ err.style.color='#f87171';
  err.textContent='';
- if(!email||!pass){err.textContent='Completa correo y contraseña';return;}
- const accion=modoRegistro
-   ? auth.createUserWithEmailAndPassword(email,pass)
-   : auth.signInWithEmailAndPassword(email,pass);
- accion.catch(e=>{err.textContent=traducirErrorLogin(e.code);});
+ if(modoRegistro){
+   const nombreTienda=document.getElementById('loginNombreTienda').value.trim();
+   const passConfirm=document.getElementById('loginPassConfirm').value;
+   if(!email||!pass||!nombreTienda||!passConfirm){err.textContent='Completa todos los campos';return;}
+   if(pass!==passConfirm){err.textContent='Las contraseñas no coinciden';return;}
+   auth.createUserWithEmailAndPassword(email,pass).then(cred=>{
+     return dbFirestore.collection('usuarios').doc(cred.user.uid).set({nombreTienda:nombreTienda,email:email});
+   }).catch(e=>{err.textContent=traducirErrorLogin(e.code);});
+ }else{
+   if(!email||!pass){err.textContent='Completa correo y contraseña';return;}
+   auth.signInWithEmailAndPassword(email,pass).catch(e=>{err.textContent=traducirErrorLogin(e.code);});
+ }
 }
 
 function cerrarSesion(){
  if(confirm('¿Cerrar sesión?')) auth.signOut();
 }
 
+function actualizarTitulo(nombre){
+ const t = nombre ? ('MK - Gestión de Tienda ' + nombre) : 'MK - Gestión de Tienda';
+ document.title = t;
+ const h = document.getElementById('tituloTienda');
+ if(h) h.textContent = t;
+}
+
+function cargarNombreTienda(uid){
+ return USUARIO_REF.get().then(snap=>{
+   if(snap.exists){
+     const migracion = migrarObjeto(snap.data(), DEFAULTS_PERFIL);
+     if(migracion.cambio) USUARIO_REF.set(migracion.datos).catch(()=>{});
+     actualizarTitulo(migracion.datos.nombreTienda);
+   }else{
+     actualizarTitulo('');
+   }
+ }).catch(()=>{actualizarTitulo('');});
+}
+
 auth.onAuthStateChanged(user=>{
  if(user){
+   DOC_REF = dbFirestore.collection('mk_tienda').doc(user.uid);
+   USUARIO_REF = dbFirestore.collection('usuarios').doc(user.uid);
    document.getElementById('loginScreen').style.display='none';
    document.getElementById('appContent').style.display='block';
+   document.getElementById('btnCerrarSesionHeader').style.display='flex';
    document.getElementById('correoActual').textContent=user.email;
+   cargarNombreTienda(user.uid);
    cargarEstado();
  }else{
+   DOC_REF = null;
+   USUARIO_REF = null;
+   actualizarTitulo('');
    document.getElementById('appContent').style.display='none';
    document.getElementById('loginScreen').style.display='block';
+   document.getElementById('btnCerrarSesionHeader').style.display='none';
    document.getElementById('loginEmail').value='';
    document.getElementById('loginPass').value='';
+   if(modoRegistro){alternarModoLogin();}
  }
 });
 
@@ -561,7 +821,7 @@ function cerrarDia(){
 
 function mostrarGastos(){
  tablaGastos.innerHTML="";
- gastos.forEach((g,i)=>{let r=tablaGastos.insertRow();r.insertCell().textContent=g.fecha;r.insertCell().textContent=g.descripcion;r.insertCell().textContent="S/ "+g.monto.toFixed(2);let c=r.insertCell();let b=document.createElement("button");b.textContent="🗑️";b.onclick=function(){CAJA+=g.monto;gastos.splice(i,1);mostrarGastos();actualizar();guardarEstado();};c.appendChild(b);});
+ gastos.forEach((g,i)=>{let r=tablaGastos.insertRow();r.insertCell().textContent=g.fecha;r.insertCell().textContent=g.descripcion;r.insertCell().textContent="S/ "+g.monto.toFixed(2);let c=r.insertCell();let b=document.createElement("button");b.className="btn-sm btn-red";b.textContent="🗑️";b.onclick=function(){CAJA+=g.monto;gastos.splice(i,1);mostrarGastos();actualizar();guardarEstado();};c.appendChild(b);});
 }
 function nuevoGasto(){
  let d=prompt("Descripción del gasto"); if(!d)return;
@@ -659,10 +919,12 @@ function agregarCarrito(){
  const t=parseFloat(carritoPrecio.value||0)*c;
  carrito.push({p:p,c:c,t:t});
  renderCarrito();
+ guardarEstado();
 }
 function eliminarCarrito(i){
  carrito.splice(i,1);
  renderCarrito();
+ guardarEstado();
 }
 function finalizarCarrito(){
  if(!carrito.length){alert('Agrega productos');return;}
@@ -678,6 +940,7 @@ function finalizarCarrito(){
  });
  carrito=[];
  renderCarrito();
+ guardarEstado();
   carritoCliente.value='';
   carritoCliente.placeholder='Nombre del cliente';
   toggleClienteCarrito();
